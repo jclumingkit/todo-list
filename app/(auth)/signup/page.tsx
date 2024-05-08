@@ -17,6 +17,7 @@ import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import validator from "validator";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -57,14 +58,21 @@ export default function SignUpPage() {
           <Stack w={360} gap="lg">
             <Title order={4}>Create an account</Title>
             <TextInput
-              {...register("email", { required: "Email is required" })}
+              {...register("email", {
+                required: "Email is required",
+                validate: (value) =>
+                  validator.isEmail(value) || "Email is invalid.",
+              })}
               label="Email"
               placeholder="Email address"
               error={errors.email?.message}
               withAsterisk
             />
             <PasswordInput
-              {...register("password", { required: "Password is required" })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: 6,
+              })}
               label="Password"
               placeholder="Password"
               error={errors.password?.message}
@@ -73,6 +81,10 @@ export default function SignUpPage() {
             <PasswordInput
               {...register("confirmPassword", {
                 required: "Password is required",
+                minLength: 6,
+                validate: (value, formValues) =>
+                  value === formValues.password ||
+                  "Your password does not match.",
               })}
               label="Confirm Password"
               placeholder="Confirm Password"
