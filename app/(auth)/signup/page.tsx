@@ -80,7 +80,7 @@ export default function SignUpPage() {
             />
             <PasswordInput
               {...register("confirmPassword", {
-                required: "Password is required",
+                required: "Confirm Password is required",
                 minLength: 6,
                 validate: (value, formValues) =>
                   value === formValues.password ||
@@ -88,7 +88,7 @@ export default function SignUpPage() {
               })}
               label="Confirm Password"
               placeholder="Confirm Password"
-              error={errors.password?.message}
+              error={errors.confirmPassword?.message}
               withAsterisk
             />
             <Button type="submit" size="md">
