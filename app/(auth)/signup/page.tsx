@@ -71,7 +71,10 @@ export default function SignUpPage() {
             <PasswordInput
               {...register("password", {
                 required: "Password is required",
-                minLength: 6,
+                minLength: {
+                  value: 6,
+                  message: "Password must have atleast 6 characters.",
+                },
               })}
               label="Password"
               placeholder="Password"
